@@ -319,7 +319,7 @@ export default class Base<T> {
   public async fetch(
     query: CompositeType = [],
     options?: FetchOptions
-  ): Promise<FetchResponse<T>> {
+  ): Promise<FetchResponse<WithKey<T>>> {
     const { limit = 1000, last = '', desc = false } = options || {};
     const sort = desc ? 'desc' : '';
 
