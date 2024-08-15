@@ -29,12 +29,12 @@ export default class Deta {
    * @param {string} [host]
    * @returns {BaseClass}
    */
-  public Base(baseName: string, host?: string): BaseClass {
+  public Base<T>(baseName: string, host?: string): BaseClass<T> {
     const name = baseName?.trim();
     if (!name) {
       throw new Error('Base name is not defined');
     }
-    return new BaseClass(this.key, this.type, this.projectId, name, host);
+    return new BaseClass<T>(this.key, this.type, this.projectId, name, host);
   }
 
   /**

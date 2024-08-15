@@ -24,9 +24,10 @@ import {
   InsertResponse,
   UpdateResponse,
   PutManyResponse,
+  WithKey,
 } from '../types/base/response';
 
-export default class Base {
+export default class Base<T> {
   private requests: Requests;
 
   public util: BaseUtils;
@@ -97,9 +98,9 @@ export default class Base {
    * get data from base
    *
    * @param {string} key
-   * @returns {Promise<GetResponse>}
+   * @returns {Promise<GetResponse<WithKey<T>>>}
    */
-  public async get(key: string): Promise<GetResponse> {
+  public async get(key: string): Promise<GetResponse<WithKey<T>>> {
     const trimmedKey = key?.trim();
     if (!trimmedKey) {
       throw new Error('Key is empty');
@@ -313,12 +314,12 @@ export default class Base {
    *
    * @param {CompositeType} [query]
    * @param {FetchOptions} [options]
-   * @returns {Promise<FetchResponse>}
+   * @returns {Promise<FetchResponse<T>>}
    */
   public async fetch(
     query: CompositeType = [],
     options?: FetchOptions
-  ): Promise<FetchResponse> {
+  ): Promise<FetchResponse<T>> {
     const { limit = 1000, last = '', desc = false } = options || {};
     const sort = desc ? 'desc' : '';
 

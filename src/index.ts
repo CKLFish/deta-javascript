@@ -17,7 +17,11 @@ export function Deta(projectKey?: string, authToken?: string): DetaClass {
     return new DetaClass(token, KeyType.AuthToken, key);
   }
 
-  const apiKey = key || (typeof process !== 'undefined' ? process.env.DETA_PROJECT_KEY?.trim() : undefined);
+  const apiKey =
+    key ||
+    (typeof process !== 'undefined'
+      ? process.env.DETA_PROJECT_KEY?.trim()
+      : undefined);
   if (apiKey) {
     return new DetaClass(apiKey, KeyType.ProjectKey, apiKey.split('_')[0]);
   }
@@ -34,10 +38,10 @@ export function Deta(projectKey?: string, authToken?: string): DetaClass {
  *
  * @param {string} baseName
  * @param {string} [host]
- * @returns {BaseClass}
+ * @returns {BaseClass<T>}
  */
-export function Base(baseName: string, host?: string): BaseClass {
-  return Deta().Base(baseName, host);
+export function Base<T>(baseName: string, host?: string): BaseClass<T> {
+  return Deta().Base<T>(baseName, host);
 }
 
 /**
@@ -50,3 +54,6 @@ export function Base(baseName: string, host?: string): BaseClass {
 export function Drive(driveName: string, host?: string): DriveClass {
   return Deta().Drive(driveName, host);
 }
+
+export * from './types/base/request';
+export * from './types/base/response';
